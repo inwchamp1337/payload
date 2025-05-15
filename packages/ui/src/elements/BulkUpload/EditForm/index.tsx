@@ -149,23 +149,23 @@ export function EditForm({
 
   return (
     <OperationProvider operation="create">
-      <BulkUploadProvider>
-        <Form
-          action={action}
-          className={`${baseClass}__form`}
-          disabled={isInitializing || !hasSavePermission}
-          initialState={isInitializing ? undefined : initialState}
-          isInitializing={isInitializing}
-          method="POST"
-          onChange={[onChange]}
-          onSuccess={onSave}
-          submitted={submitted}
-        >
-          <DocumentFields
-            BeforeFields={
-              <React.Fragment>
-                {CustomUpload || (
-                  <UploadControlsProvider collectionSlug={collectionSlug}>
+      <UploadControlsProvider collectionSlug={collectionSlug}>
+        <BulkUploadProvider>
+          <Form
+            action={action}
+            className={`${baseClass}__form`}
+            disabled={isInitializing || !hasSavePermission}
+            initialState={isInitializing ? undefined : initialState}
+            isInitializing={isInitializing}
+            method="POST"
+            onChange={[onChange]}
+            onSuccess={onSave}
+            submitted={submitted}
+          >
+            <DocumentFields
+              BeforeFields={
+                <React.Fragment>
+                  {CustomUpload || (
                     <Upload_v4
                       collectionSlug={collectionConfig.slug}
                       initialState={initialState}
@@ -174,18 +174,18 @@ export function EditForm({
                       uploadConfig={collectionConfig.upload}
                       uploadEdits={uploadEdits}
                     />
-                  </UploadControlsProvider>
-                )}
-              </React.Fragment>
-            }
-            docPermissions={docPermissions}
-            fields={collectionConfig.fields}
-            schemaPathSegments={[collectionConfig.slug]}
-          />
-          <ReportAllErrors />
-          <GetFieldProxy />
-        </Form>
-      </BulkUploadProvider>
+                  )}
+                </React.Fragment>
+              }
+              docPermissions={docPermissions}
+              fields={collectionConfig.fields}
+              schemaPathSegments={[collectionConfig.slug]}
+            />
+            <ReportAllErrors />
+            <GetFieldProxy />
+          </Form>
+        </BulkUploadProvider>
+      </UploadControlsProvider>
     </OperationProvider>
   )
 }
