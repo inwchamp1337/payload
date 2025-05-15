@@ -1,5 +1,5 @@
 'use client'
-import type { DocumentSlots, FormState, SanitizedCollectionConfig, UploadEdits } from 'payload'
+import type { FormState, SanitizedCollectionConfig, UploadEdits } from 'payload'
 
 import { isImage } from 'payload/shared'
 import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react'
@@ -12,7 +12,6 @@ import { useField } from '../../forms/useField/index.js'
 import { useConfig } from '../../providers/Config/index.js'
 import { useDocumentInfo } from '../../providers/DocumentInfo/index.js'
 import { EditDepthProvider } from '../../providers/EditDepth/index.js'
-import { useServerFunctions } from '../../providers/ServerFunctions/index.js'
 import { useTranslation } from '../../providers/Translation/index.js'
 import { useUploadControls } from '../../providers/UploadControls/index.js'
 import { useUploadEdits } from '../../providers/UploadEdits/index.js'
@@ -121,9 +120,8 @@ export const Upload_v4: React.FC<UploadProps_v4> = (props) => {
     uploadConfig,
     uploadEdits,
   } = props
-  const { getDocumentSlots } = useServerFunctions()
-  const [documentSlots, setDocumentSlots] = React.useState<DocumentSlots>({})
   const {
+    documentSlots,
     setUploadControlFile,
     setUploadControlFileName,
     setUploadControlFileUrl,
@@ -329,13 +327,6 @@ export const Upload_v4: React.FC<UploadProps_v4> = (props) => {
   const acceptMimeTypes = uploadConfig.mimeTypes?.join(', ')
 
   const imageCacheTag = uploadConfig?.cacheTags && savedDocumentData?.updatedAt
-
-  useEffect(() => {
-    void (async () => {
-      const slots = await getDocumentSlots({ collectionSlug })
-      setDocumentSlots(slots)
-    })()
-  }, [getDocumentSlots, collectionSlug])
 
   useEffect(() => {
     const handleControlFileUrl = async () => {

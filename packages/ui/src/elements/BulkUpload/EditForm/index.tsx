@@ -165,7 +165,7 @@ export function EditForm({
             BeforeFields={
               <React.Fragment>
                 {CustomUpload || (
-                  <UploadControlsProvider>
+                  <UploadControlsProvider collectionSlug={collectionSlug}>
                     <Upload_v4
                       collectionSlug={collectionConfig.slug}
                       initialState={initialState}

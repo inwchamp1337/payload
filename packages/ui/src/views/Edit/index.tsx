@@ -574,7 +574,7 @@ export function DefaultEditView({
                   {upload && (
                     <React.Fragment>
                       {CustomUpload || (
-                        <UploadControlsProvider>
+                        <UploadControlsProvider collectionSlug={collectionSlug}>
                           <Upload
                             collectionSlug={collectionConfig.slug}
                             initialState={initialState}
