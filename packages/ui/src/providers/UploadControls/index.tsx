@@ -19,7 +19,7 @@ const Context = createContext<UploadControlsContext>(undefined)
 
 export const UploadControlsProvider: React.FC<{
   children: React.ReactNode
-  collectionSlug: CollectionSlug
+  collectionSlug?: CollectionSlug
 }> = ({ children, collectionSlug }) => {
   const { getDocumentSlots } = useServerFunctions()
   const [documentSlots, setDocumentSlots] = React.useState<DocumentSlots>({})
